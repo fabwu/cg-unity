@@ -60,9 +60,9 @@ public class WorldGenerator : MonoBehaviour
             {
                 // Compute a random height
                 //Höhere Nummern leicht priorisieren damit weniger löcher
-                float height1 = Random.Range(0, SizeY);
-                float height2 = Random.Range(0, SizeY);
-                float height = (height1 > height2) ? height1 : height2;
+                float height1 = Random.Range(SizeY / 2, SizeY);
+                float height2 = Random.Range(SizeY / 2, SizeY);
+                int height = Mathf.RoundToInt((height1 > height2) ? height1 : height2);
                 float cutOffHeight = Random.Range(0, SizeY / 2);
 
                 for (int y = 0; y <= height; y++)
