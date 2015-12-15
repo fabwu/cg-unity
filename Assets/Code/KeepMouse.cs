@@ -3,6 +3,11 @@ using System.Collections;
 
 public class KeepMouse : MonoBehaviour {
 
+    void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     void OnGUI()
     {
         GUILayout.BeginVertical();

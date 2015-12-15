@@ -63,40 +63,37 @@ public class WorldGenerator : MonoBehaviour
                 float height1 = Random.Range(0, SizeY);
                 float height2 = Random.Range(0, SizeY);
                 float height = (height1 > height2) ? height1 : height2;
+                float cutOffHeight = Random.Range(0, SizeY / 2);
+
                 for (int y = 0; y <= height; y++)
-                {
+                { 
                     // Compute the position for every voxel
                     Vector3 newPosition = new Vector3(x, y, z);
-                    // Call the method giving the new position and a Voxel instance as parameters
-                    float random = Random.Range(0.0f, 2.0f);
-                    if (random <= 1.5f)
+
+                    if (y <= cutOffHeight)
+                    {
+                        CloneAndPlace(newPosition, Voxel_Stone);
+                    } else
                     {
                         CloneAndPlace(newPosition, Voxel_Grass);
                     }
-                    else if(random > 1.5f && random <=1.99)
-                    {
-                        CloneAndPlace(newPosition, Voxel_Stone);
-                    }
-                    else
-                    {
-                        CloneAndPlace(newPosition, Voxel_Tree);
-                    }
-                    
-                    // Increment numberOfInstances
-                    numberOfInstances++;
 
-                    // If the number of instances per frame was met
-                    if (numberOfInstances == instancesPerFrame)
-                    {
-                        // Reset numberOfInstances
-                        numberOfInstances = 0;
-                        // Wait for next frame
-                        yield return new WaitForEndOfFrame();
-                    }
+
                 }
+
+                // Call the method giving the new position and a Voxel instance as parameters
+                float randomTree = Random.Range(0.0f, 2.0f);
+
+                    if (randomTree > 1.99f)
+                    {
+                    CloneAndPlace(new Vector3(x, height, z), Voxel_Tree);
+                }
+
 
             }
 
         }
+        yield return new WaitForEndOfFrame();
+
     }
 }
